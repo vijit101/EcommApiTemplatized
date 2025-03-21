@@ -1,0 +1,5 @@
+Products 
+    GetProduct
+    AddProduct
+    GetOneProduct 
+    RateProduct
