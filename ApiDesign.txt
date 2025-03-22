@@ -3,3 +3,7 @@ Products
     AddProduct
     GetOneProduct 
     RateProduct
+
+User Controller 
+    Signup 
+    sign in 
