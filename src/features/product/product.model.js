@@ -23,6 +23,17 @@ export default class ProductModel {
     const product = products.find(i=>i.id ==id);
     return product;
   }
+
+  static filter(minPrice, maxPrice, category){
+    let result = null;
+    for(let i=0;i<products.length;i++){
+      let price = products[i].prices;
+      if((!minPrice || price>=minPrice) && (!maxPrice || price <=maxPrice) && (!category || products[i].category === category)){
+        result = products[i];
+      }
+    }
+    return result;
+  }
 }
 
 var products = [
