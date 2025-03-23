@@ -40,4 +40,16 @@ export default class ProductController{
         const result =  ProductModel.filter(minPrice,maxPrice,category);
         res.status(200).send(result);
     }
+
+    rateProduct(req,res){
+        const userId  = req.query.userId;
+        const productId = req.query.productId;
+        const rating = req.query.rating;
+        const error =  ProductModel.rateProduct(userId,productId,rating);
+        if(error){
+            return res.status(400).send(error);
+        }else{
+            return res.status(200).send("rating updated");
+        }
+    }
 }
