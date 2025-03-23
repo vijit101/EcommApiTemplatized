@@ -8,7 +8,7 @@ const basicAuthorizer = (req,res,next)=>{
 
     }
     console.log("Auth head : "+authHeader);
-    // auth header be liek [basic qedfadasdas]
+    // auth header be like [basic qedfadasdas]
     const base64creds = authHeader.replace("Basic","");
     // decode 
     console.log("w/o base : "+base64creds);
