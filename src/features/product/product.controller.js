@@ -1,4 +1,5 @@
-import ProductModel from "../product.model.js";
+
+import ProductModel from "./product.model.js";
 export default class ProductController{
     getAllProducts(req,res){
         const prods =  ProductModel.getAll();

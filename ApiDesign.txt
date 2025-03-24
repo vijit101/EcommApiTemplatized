@@ -7,3 +7,8 @@ Products
 User Controller 
     Signup 
     sign in 
+
+Cart 
+    prod id 
+    user id 
+    quantitiy 

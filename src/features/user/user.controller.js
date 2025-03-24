@@ -10,10 +10,10 @@ export class UserController{
     signIn(req,res){
         let result = UserModel.SignIn(req.body.email,req.body.password);
         if(!result){
-            return res.status(400).send("incorrect Creds");
+            return res.status(400).send("Incorrect Creds");
         }else{
             // send token 
-            const token = jwt.sign({userId:result.id,email:result.email},"iPB4VvT2pv3Ky66IxActwYaH5PbW5Pn9",{expiresIn:"24h"});
+            const token = jwt.sign({userId:result.id,email:result.email},"iPB4VvT2pv3Ky66IxActwYaH5PbW5Pn9",{expiresIn:"1h"});
             return res.status(200).send(token);
         }
     }
