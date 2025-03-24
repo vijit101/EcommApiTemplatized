@@ -1,40 +1,47 @@
 {
-    "swagger": "2.0",
+    "swagger": "3.0",
     "info": {
         "version": "1.0.0",
-        "description": "Ecomm API Template",
+        "description": "## Usage Instructions\n1. **Sign Up** - Create a new account using the /signup endpoint.\n2. **Sign In** - Authenticate with your credentials using the /signin endpoint.\n3. **Get JWT Token** - On successful login, receive a JWT token.\n4. **Authorize** - Store the token and use it for accessing protected endpoints (valid for 2 hours).\n5. **Access APIs** - Include the token in the Authorization header for endpoints requiring authentication.\n\nEcomm API Template - A comprehensive API for managing users, products, and cart operations in an e-commerce platform.",
         "title": "Ecomm API Documentation"
     },
     "host": "localhost:8080",
+    "tags": [
+        { "name": "Users", "description": "User authentication and management" },
+        { "name": "Products", "description": "Product catalog management" },
+        { "name": "Cart", "description": "Shopping cart operations" }
+    ],
     "paths": {
         "/api/users/signin": {
             "post": {
-                "summary": "Login",
-                "description": "User Login To get Token",
+                "tags": ["Users"],
+                "summary": "User Login",
+                "description": "Authenticate an existing user with their credentials and receive a JWT token for further authentication.",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "User Credentials",
+                        "description": "User credentials including email and password.",
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "email": { "type": "string" },
-                                "password": { "type": "string" }
+                                "email": { "type": "string", "description": "Registered email address of the user." },
+                                "password": { "type": "string", "description": "Password associated with the account." }
                             }
                         }
                     }
                 ],
                 "responses": {
-                    "200": { "description": "OK" },
-                    "400": { "description": "Incorrect Credentials" }
+                    "200": { "description": "Login successful, JWT token returned." },
+                    "400": { "description": "Incorrect credentials provided." }
                 }
             }
         },
         "/api/users/signup": {
             "post": {
+                "tags": ["Users"],
                 "summary": "User Signup",
-                "description": "Register a new user",
+                "description": "Register a new user by providing the required details like name, email, password, and user type.",
                 "parameters": [
                     {
                         "in": "body",
@@ -43,37 +50,40 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "name": { "type": "string" },
-                                "email": { "type": "string" },
-                                "password": { "type": "string" },
-                                "type": { "type": "string" }
+                                "name": { "type": "string", "description": "Full name of the user." },
+                                "email": { "type": "string", "description": "Email address to be used for login." },
+                                "password": { "type": "string", "description": "Secure password for the account." },
+                                "type": { "type": "string", "description": "User type, e.g., customer or admin." }
                             }
                         }
                     }
                 ],
                 "responses": {
-                    "201": { "description": "User registered successfully" },
-                    "400": { "description": "Invalid input" }
+                    "201": { "description": "User registered successfully." },
+                    "400": { "description": "Invalid input, registration failed." }
                 }
             }
         },
         "/api/products": {
             "get": {
+                "tags": ["Products"],
                 "summary": "Get All Products",
-                "description": "Retrieve a list of all products",
+                "description": "Retrieve a complete list of available products in the catalog.",
                 "responses": {
-                    "200": { "description": "List of products" }
+                    "200": { "description": "List of all available products." }
                 }
             },
             "post": {
+                "tags": ["Products"],
                 "summary": "Add a Product",
-                "description": "Add a new product to the catalog",
+                "description": "Create a new product by providing details such as name, price, available sizes, and an image.",
                 "parameters": [
                     {
                         "in": "formData",
                         "name": "imageUrl",
                         "type": "file",
-                        "required": true
+                        "required": true,
+                        "description": "Image file for the product."
                     },
                     {
                         "in": "body",
@@ -82,66 +92,50 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "name": { "type": "string" },
-                                "price": { "type": "number" },
-                                "sizes": { "type": "string" }
+                                "name": { "type": "string", "description": "Product name." },
+                                "price": { "type": "number", "description": "Price of the product." },
+                                "sizes": { "type": "string", "description": "Comma-separated sizes available for the product." }
                             }
                         }
                     }
                 ],
                 "responses": {
-                    "201": { "description": "Product created" },
-                    "400": { "description": "Invalid input" }
+                    "201": { "description": "Product created successfully." },
+                    "400": { "description": "Invalid input, product creation failed." }
                 }
             }
         },
-        "/api/products/filter": {
+        "/api/cart": {
             "get": {
-                "summary": "Filter Products",
-                "description": "Retrieve a filtered list of products",
+                "tags": ["Cart"],
+                "summary": "Get User Cart",
+                "description": "Retrieve the items in the authenticated user's shopping cart. **Authorization required: true**",
+                "responses": {
+                    "200": { "description": "User's cart items." }
+                }
+            },
+            "post": {
+                "tags": ["Cart"],
+                "summary": "Add Item to Cart",
+                "description": "Add a product to the user's shopping cart. **Authorization required: true**",
                 "parameters": [
-                    { "name": "minPrice", "in": "query", "type": "number" },
-                    { "name": "maxPrice", "in": "query", "type": "number" },
-                    { "name": "category", "in": "query", "type": "string" }
-                ],
-                "responses": { "200": { "description": "Filtered products" } }
-            }
-        },
-        "/api/products/{id}": {
-            "get": {
-                "summary": "Get One Product",
-                "description": "Retrieve details of a single product",
-                "parameters": [
-                    { "name": "id", "in": "path", "required": true, "type": "integer" }
+                    { "name": "productId", "in": "query", "type": "integer", "required": true, "description": "Product ID to be added." },
+                    { "name": "quantity", "in": "query", "type": "integer", "required": true, "description": "Quantity of the product." }
                 ],
                 "responses": {
-                    "200": { "description": "Product details" },
-                    "404": { "description": "Product not found" }
+                    "200": { "description": "Item added to cart successfully." }
                 }
-            }
-        },
-        "/api/products/rate": {
-            "post": {
-                "summary": "Rate a Product",
-                "description": "Submit a rating for a product",
+            },
+            "delete": {
+                "tags": ["Cart"],
+                "summary": "Remove Item from Cart",
+                "description": "Remove a specific item from the user's shopping cart. **Authorization required: true**",
                 "parameters": [
-                    { "name": "userId", "in": "query", "required": true, "type": "integer" },
-                    { "name": "productId", "in": "query", "required": true, "type": "integer" },
-                    { "name": "rating", "in": "query", "required": true, "type": "integer" }
+                    { "name": "id", "in": "path", "required": true, "type": "integer", "description": "Cart item ID to be removed." }
                 ],
-                "responses": { "200": { "description": "Rating updated" }, "400": { "description": "Invalid input" } }
-            }
-        },
-        "/api/cart/addtocart": {
-            "post": {
-                "summary": "Add to Cart",
-                "description": "Add an item to the cart",
-                "security": [{ "JWT": [] }],
-                "parameters": [
-                    { "name": "productId", "in": "query", "required": true, "type": "integer" },
-                    { "name": "quantity", "in": "query", "required": true, "type": "integer" }
-                ],
-                "responses": { "200": { "description": "Item added to cart" }, "401": { "description": "Unauthorized" } }
+                "responses": {
+                    "200": { "description": "Item removed from cart successfully." }
+                }
             }
         }
     },
@@ -149,7 +143,8 @@
         "JWT": {
             "type": "apiKey",
             "name": "Authorization",
-            "in": "header"
+            "in": "header",
+            "description": "JWT token required for authorization. Include it in the Authorization header as 'Bearer <token>'."
         }
     }
 }
