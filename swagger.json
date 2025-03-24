@@ -1,0 +1,155 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "description": "Ecomm API Template",
+        "title": "Ecomm API Documentation"
+    },
+    "host": "localhost:8080",
+    "paths": {
+        "/api/users/signin": {
+            "post": {
+                "summary": "Login",
+                "description": "User Login To get Token",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User Credentials",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": { "type": "string" },
+                                "password": { "type": "string" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": { "description": "OK" },
+                    "400": { "description": "Incorrect Credentials" }
+                }
+            }
+        },
+        "/api/users/signup": {
+            "post": {
+                "summary": "User Signup",
+                "description": "Register a new user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": { "type": "string" },
+                                "email": { "type": "string" },
+                                "password": { "type": "string" },
+                                "type": { "type": "string" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": { "description": "User registered successfully" },
+                    "400": { "description": "Invalid input" }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "summary": "Get All Products",
+                "description": "Retrieve a list of all products",
+                "responses": {
+                    "200": { "description": "List of products" }
+                }
+            },
+            "post": {
+                "summary": "Add a Product",
+                "description": "Add a new product to the catalog",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "imageUrl",
+                        "type": "file",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": { "type": "string" },
+                                "price": { "type": "number" },
+                                "sizes": { "type": "string" }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": { "description": "Product created" },
+                    "400": { "description": "Invalid input" }
+                }
+            }
+        },
+        "/api/products/filter": {
+            "get": {
+                "summary": "Filter Products",
+                "description": "Retrieve a filtered list of products",
+                "parameters": [
+                    { "name": "minPrice", "in": "query", "type": "number" },
+                    { "name": "maxPrice", "in": "query", "type": "number" },
+                    { "name": "category", "in": "query", "type": "string" }
+                ],
+                "responses": { "200": { "description": "Filtered products" } }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "summary": "Get One Product",
+                "description": "Retrieve details of a single product",
+                "parameters": [
+                    { "name": "id", "in": "path", "required": true, "type": "integer" }
+                ],
+                "responses": {
+                    "200": { "description": "Product details" },
+                    "404": { "description": "Product not found" }
+                }
+            }
+        },
+        "/api/products/rate": {
+            "post": {
+                "summary": "Rate a Product",
+                "description": "Submit a rating for a product",
+                "parameters": [
+                    { "name": "userId", "in": "query", "required": true, "type": "integer" },
+                    { "name": "productId", "in": "query", "required": true, "type": "integer" },
+                    { "name": "rating", "in": "query", "required": true, "type": "integer" }
+                ],
+                "responses": { "200": { "description": "Rating updated" }, "400": { "description": "Invalid input" } }
+            }
+        },
+        "/api/cart/addtocart": {
+            "post": {
+                "summary": "Add to Cart",
+                "description": "Add an item to the cart",
+                "security": [{ "JWT": [] }],
+                "parameters": [
+                    { "name": "productId", "in": "query", "required": true, "type": "integer" },
+                    { "name": "quantity", "in": "query", "required": true, "type": "integer" }
+                ],
+                "responses": { "200": { "description": "Item added to cart" }, "401": { "description": "Unauthorized" } }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

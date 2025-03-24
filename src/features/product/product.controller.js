@@ -20,10 +20,6 @@ export default class ProductController{
         res.status(201).send(createdRecord);
     }
 
-    rateProduct(req,res){
-
-    }
-
     getOneProduct(req,res){
         const id = req.params.id;
         const prod = ProductModel.get(id);
