@@ -38,7 +38,7 @@ app.get("/",(req,res)=>{
 app.use((err,req,res,next)=>{
     console.log(err);
     logger(err);
-    res.status(503).send("something went wrong ");
+    res.status(500).send("something went wrong ");
 
     next();
 })
