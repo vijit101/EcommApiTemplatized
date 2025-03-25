@@ -1,6 +1,9 @@
 import fs from "fs";
+import winston, { transports } from "winston";
 
 const fsPromise = fs.promises;
+
+
 
 async function log(logData){
     try{
@@ -11,13 +14,22 @@ async function log(logData){
     }
 }
 
+const logger = winston.createLogger({
+    level:"info",
+    format:winston.format.json(),
+    defaultMeta:{service:"requet-logging"},
+    transports:[
+        new winston.transports.File({filename:"logs.txt"})
+    ]
+})
+
 const loggerMiddleware = async(req,res,next)=>{
     if(!req.url.includes("signin") && !req.url.includes("signup"))
     {
         const logdata = `${req.url} - ${JSON.stringify(req.body)}`;
-        await log(logdata);
+        logger.info(logdata);
     }
     next();
 };
 
-export default loggerMiddleware;
+export  {loggerMiddleware,logger};
