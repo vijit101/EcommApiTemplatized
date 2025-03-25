@@ -9,6 +9,7 @@ import CartItemRouter from './src/features/cart/cartitems.routes.js';
 import jwtAuth from './src/middlewares/jwt.middleware.js';
 import cors from "cors";
 import {loggerMiddleware,logger} from './src/middlewares/logger.middleware.js';
+import { ApplicationError } from './src/error-handler/applicationError.js';
 
 const app = express();
 
@@ -37,10 +38,13 @@ app.get("/",(req,res)=>{
 
 app.use((err,req,res,next)=>{
     console.log(err);
+    
+    if(err instanceof ApplicationError){
+        res.status(err.code).send(err.message);
+    }
     logger(err);
+    // server error 
     res.status(500).send("something went wrong ");
-
-    next();
 })
 // only executes if other paths do not pick up as this middleware is for not defined apis should be at end 
 app.use((req,res)=>{
