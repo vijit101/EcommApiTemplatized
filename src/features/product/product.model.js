@@ -42,11 +42,12 @@ export default class ProductModel {
     //validate user and product if they exist ? 
     const myuser = UserModel.getAllUser().find(u=>u.id == userId);
     if(!myuser){
-      return "user not found";
+      // return "user not found";
+      throw new Error("user not found");
     }
     const prodfound = products.find(p=>p.id == productId);
     if(!prodfound){
-      return "prod not found";
+      throw new Error("prod not found");
     }
     // add ratings if not ratings 
     if(!prodfound.ratings){

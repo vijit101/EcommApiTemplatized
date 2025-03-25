@@ -42,11 +42,12 @@ export default class ProductController{
         const userId  = req.query.userId;
         const productId = req.query.productId;
         const rating = req.query.rating;
-        const error =  ProductModel.rateProduct(userId,productId,rating);
-        if(error){
-            return res.status(400).send(error);
-        }else{
-            return res.status(200).send("rating updated");
+        try{
+            ProductModel.rateProduct(userId,productId,rating);
+        }catch(err){
+            return res.status(400).send(err.message);
         }
+        return res.status(200).send("rating updated");
+        
     }
 }
