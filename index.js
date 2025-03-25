@@ -8,7 +8,7 @@ import basicAuthorizer from './src/middlewares/basicAuth.middleware.js';
 import CartItemRouter from './src/features/cart/cartitems.routes.js';
 import jwtAuth from './src/middlewares/jwt.middleware.js';
 import cors from "cors";
-import loggerMiddleware from './src/middlewares/logger.middleware.js';
+import {loggerMiddleware,logger} from './src/middlewares/logger.middleware.js';
 
 const app = express();
 
@@ -34,6 +34,14 @@ app.get("/",(req,res)=>{
     res.send("Welcome to Ecommerce API");
 })
 
+
+app.use((err,req,res,next)=>{
+    console.log(err);
+    logger(err);
+    res.status(503).send("something went wrong ");
+
+    next();
+})
 // only executes if other paths do not pick up as this middleware is for not defined apis should be at end 
 app.use((req,res)=>{
     res.status(404).send("API not found. CHeck Documentation localhost:8080/api-docs");
