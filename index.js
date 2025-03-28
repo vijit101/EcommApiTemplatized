@@ -10,6 +10,7 @@ import jwtAuth from './src/middlewares/jwt.middleware.js';
 import cors from "cors";
 import {loggerMiddleware,logger} from './src/middlewares/logger.middleware.js';
 import { ApplicationError } from './src/error-handler/applicationError.js';
+import connectToMongoDB from './src/config/mongodb.js';
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use((req,res)=>{
 
 app.listen(8080,()=>{
     console.log("server started at 8080");
+    connectToMongoDB();
 })
 
 
