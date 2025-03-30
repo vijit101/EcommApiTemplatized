@@ -1,3 +1,4 @@
+import "./env.js";
 import express from 'express';
 import swagger from "swagger-ui-express";
 import apiDocs from "./swagger.json" assert {type:"json"};
@@ -13,6 +14,8 @@ import { ApplicationError } from './src/error-handler/applicationError.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
 
 const app = express();
+
+// load all the environment variables in application
 
 
 let corsOptions  = {

@@ -24,7 +24,7 @@ export class UserController {
         // check if password for user right
         const result = await bcrypt.compare(req.body.password, user.password);
         if (result) {
-          const token = jwt.sign({ userId: result.id, email: result.email },"iPB4VvT2pv3Ky66IxActwYaH5PbW5Pn9",{ expiresIn: "1h" });
+          const token = jwt.sign({ userId: result.id, email: result.email },process.env.JWT_Secret,{ expiresIn: "1h" });
           return res.status(200).send(token);
         } else {
           console.log(err);
