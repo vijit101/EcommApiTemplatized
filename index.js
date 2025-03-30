@@ -52,7 +52,7 @@ app.use((err,req,res,next)=>{
 })
 // only executes if other paths do not pick up as this middleware is for not defined apis should be at end 
 app.use((req,res)=>{
-    res.status(404).send("API not found. CHeck Documentation localhost:8080/api-docs");
+    res.status(404).send("API not found. Check Documentation localhost:8080/api-docs");
 })
 
 app.listen(8080,()=>{
