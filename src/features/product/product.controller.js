@@ -7,8 +7,8 @@ export default class ProductController{
         this.productRepository = new ProductRepository();
     }
 
-    getAllProducts(req,res){
-        const prods =  ProductModel.getAll();
+    async getAllProducts(req,res){
+        const prods =  await this.productRepository.getAll();
         res.status(200).send(prods);
     }
 
@@ -41,15 +41,24 @@ export default class ProductController{
         res.status(201).send(createdRecord);
     }
 
-    getOneProduct(req,res){
+    async getOneProduct(req,res){
         const id = req.params.id;
-        const prod = ProductModel.get(id);
+        const prod = await this.productRepository.get(id);
         if(!prod){
             res.status(404).send("prod not found");
         }else{
             return res.status(200).send(prod);
         }
     }
+    // getOneProduct(req,res){
+    //     const id = req.params.id;
+    //     const prod = ProductModel.get(id);
+    //     if(!prod){
+    //         res.status(404).send("prod not found");
+    //     }else{
+    //         return res.status(200).send(prod);
+    //     }
+    // }
 
     filterProducts(req,res){
         const minPrice = req.query.minPrice;
