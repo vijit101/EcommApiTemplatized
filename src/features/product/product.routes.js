@@ -6,7 +6,9 @@ const prodController = new ProductController();
 
 productRouter.get('/filter',prodController.filterProducts);
 productRouter.get("/",prodController.getAllProducts);
-productRouter.post("/",upload.single('imageUrl'),prodController.addProduct);
+productRouter.post("/",upload.single('imageUrl'),(req,res)=>{
+    prodController.addProduct(req,res);
+});
 productRouter.get('/:id',prodController.getOneProduct);
 productRouter.post("/rate",prodController.rateProduct);
 

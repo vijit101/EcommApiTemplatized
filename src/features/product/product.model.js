@@ -2,14 +2,15 @@ import { ApplicationError } from "../../error-handler/applicationError.js";
 import { UserModel } from "../user/user.model.js";
 
 export default class ProductModel {
-  constructor(id, name, desc, prices, imageUrl, category, sizes) {
-    this.id = id;
+  constructor(name, desc, prices, imageUrl, category, sizes,id) {
+    
     this.name = name;
     this.desc = desc;
     this.imageUrl = imageUrl;
     this.category = category;
     this.prices = prices;
     this.sizes = sizes;
+    this._id = id;
   }
 
   static getAll(){

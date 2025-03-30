@@ -4,9 +4,11 @@ import UserRepository from "./user.repository.js";
 import bcrypt from "bcrypt";
 import { logger } from "../../middlewares/logger.middleware.js";
 export class UserController {
+  
   constructor() {
     this.userRepository = new UserRepository();
   }
+
   async signUp(req, res) {
     const { name, email, password, type } = req.body;
     const hashedPassword = await bcrypt.hash(password, 12); // 12 is salt

@@ -1,20 +1,41 @@
 
 import ProductModel from "./product.model.js";
+import ProductRepository from "./product.repository.js";
 export default class ProductController{
+
+    constructor(){
+        this.productRepository = new ProductRepository();
+    }
+
     getAllProducts(req,res){
         const prods =  ProductModel.getAll();
         res.status(200).send(prods);
     }
 
-    addProduct(req,res){
-        const {name,price,sizes} =  req.body;
+    // addProduct(req,res){
+    //     const {name,price,sizes} =  req.body;
+    //     const newprod = {
+    //         name,
+    //         price:parseFloat(price),
+    //         sizes : sizes.split(','),
+    //         imageUrl: req.file.filename,
+    //     }
+    //     const createdRecord = 
+    //     console.log("post product update req successful");
+        
+    //     res.status(201).send(createdRecord);
+    // }
+
+    async addProduct(req,res){
+        const {name,price,sizes,category} =  req.body;
         const newprod = {
             name,
             price:parseFloat(price),
             sizes : sizes.split(','),
+            category : category,
             imageUrl: req.file.filename,
         }
-        const createdRecord = ProductModel.add(newprod);
+        const createdRecord = await this.productRepository.Add(newprod);
         console.log("post product update req successful");
         
         res.status(201).send(createdRecord);
