@@ -4,7 +4,9 @@ import {upload} from "../../middlewares/fileupload.middleware.js";
 const productRouter = express.Router();
 const prodController = new ProductController();
 
-productRouter.get('/filter',prodController.filterProducts);
+productRouter.get('/filter',(req,res)=>{
+    prodController.filterProducts(req,res);
+});
 productRouter.get("/",(req,res)=>{
     prodController.getAllProducts(req,res);
 });

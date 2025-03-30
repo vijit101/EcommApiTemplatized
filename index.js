@@ -9,9 +9,11 @@ import basicAuthorizer from './src/middlewares/basicAuth.middleware.js';
 import CartItemRouter from './src/features/cart/cartitems.routes.js';
 import jwtAuth from './src/middlewares/jwt.middleware.js';
 import cors from "cors";
-import {loggerMiddleware,logger} from './src/middlewares/logger.middleware.js';
+import {loggerMiddleware,logger,log} from './src/middlewares/logger.middleware.js';
 import { ApplicationError } from './src/error-handler/applicationError.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
+
+
 
 const app = express();
 
@@ -46,7 +48,7 @@ app.use((err,req,res,next)=>{
     if(err instanceof ApplicationError){
         res.status(err.code).send(err.message);
     }
-    logger(err);
+    log(err);
     // server error 
     res.status(500).send("something went wrong ");
 })
