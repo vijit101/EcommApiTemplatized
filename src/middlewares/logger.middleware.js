@@ -32,4 +32,4 @@ const loggerMiddleware = async(req,res,next)=>{
     next();
 };
 
-export  {loggerMiddleware,logger};
+export  {loggerMiddleware,logger,log};
