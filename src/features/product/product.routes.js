@@ -16,6 +16,7 @@ productRouter.post("/",upload.single('imageUrl'),(req,res)=>{
 productRouter.get('/:id',(req,res)=>{
     prodController.getOneProduct(req,res);
 });
-productRouter.post("/rate",prodController.rateProduct);
-
+productRouter.post("/rate",(req,res,next)=>{
+    prodController.rateProduct(req,res,next);
+});
 export default productRouter;

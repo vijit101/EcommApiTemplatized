@@ -72,14 +72,16 @@ export default class ProductController{
 
   
 
-    rateProduct(req,res){
-        const userId  = req.query.userId;
+    async rateProduct(req,res,next){
+        const userId  = req.userId;
         const productId = req.query.productId;
         const rating = req.query.rating;
         try{
-            ProductModel.rateProduct(userId,productId,rating);
+            await this.productRepository.rate(userId,productId,rating);
         }catch(err){
+            console.log(err);
             return res.status(400).send(err.message);
+            next(err);
         }
         return res.status(200).send("rating updated");
         
