@@ -16,50 +16,68 @@ class ProductRepository {
     }
   }
 
-  async getAll(){
-    try{
+  async getAll() {
+    try {
       const db = getDB();
       const ProductCollection = db.collection("products");
       return await ProductCollection.find({}).toArray();
-    }catch (err) {
+    } catch (err) {
       console.log("prod controller getAll:" + err);
       throw new ApplicationError("Something went wrong", 500);
     }
-    
   }
 
-  async get(id){
-    try{
+  async get(id) {
+    try {
       const db = getDB();
       const ProductCollection = db.collection("products");
-      return await ProductCollection.findOne({_id: new ObjectId(id)});
-    }catch (err) {
+      return await ProductCollection.findOne({ _id: new ObjectId(id) });
+    } catch (err) {
       console.log("prod controller get:id" + err);
       throw new ApplicationError("Something went wrong", 500);
     }
   }
 
-  async filter(minPrice,maxPrice,category){
-    try{
+  async filter(minPrice, maxPrice, category) {
+    try {
       const db = getDB();
       const ProductCollection = db.collection("products");
-      let filterExpression = { };
-      if(minPrice){
-        filterExpression.price = {$gte: parseFloat(minPrice)}; 
+      let filterExpression = {};
+      if (minPrice) {
+        filterExpression.price = { $gte: parseFloat(minPrice) }; // min price was overriding max price
       }
-      if(maxPrice){
-        filterExpression.price = {$lte: parseFloat(maxPrice)}; 
+      if (maxPrice) {
+        filterExpression.price = {
+          ...filterExpression,
+          $lte: parseFloat(maxPrice),
+        }; // combine filter for min price
       }
-      if(category){
+      if (category) {
         filterExpression.category = category;
       }
       return await ProductCollection.find(filterExpression).toArray();
-    }catch (err) {
+    } catch (err) {
       console.log("prod controller filter" + err);
       throw new ApplicationError("Something went wrong", 500);
     }
   }
 
+  async rate(userId, productId, rating) {
+    try {
+      const db = getDB();
+      const ProductCollection = db.collection("products");
+
+      ProductCollection.updateOne(
+        { _id: new ObjectId(productId) },
+        {
+          $push: { ratings: { userId, rating } }
+        }
+      );
+    } catch (err) {
+      console.log("prod controller filter" + err);
+      throw new ApplicationError("Something went wrong", 500);
+    }
+  }
 }
 
 export default ProductRepository;
