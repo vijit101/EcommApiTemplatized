@@ -13,3 +13,17 @@
 {"level":"info","message":"/api/products/rate?productId=67e94bf4ab5b20b535b962c1&rating=4 - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/rate?productId=67e94bf4ab5b20b535b962c1&rating=4 - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/rate?productId=67e94bf4ab5b20b535b962c1&rating=4 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4.5}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4.5}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4.5}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4.5}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4.5}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":3}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":3}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":3}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":3}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":3}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":3}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productId\":\"67e94bf4ab5b20b535b962c1\",\"rating\":4.5}","service":"requet-logging"}
