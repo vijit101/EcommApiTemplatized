@@ -13,7 +13,7 @@ export default class CartItemsRepository {
         new ObjectId(userId),
         quantity
       );
-      await collection.insertOne(cartItem);
+      await collection.updateOne({userId:cartItem.userId , productId:cartItem.productId},{$inc:{quantity:quantity}},{upsert:true}); // this searches if found up[date quantity if not crate new 
       return cartItem;
     } catch (err) {
       console.log("cart items Addto cart:" + err);
