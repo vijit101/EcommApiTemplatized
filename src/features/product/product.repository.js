@@ -62,35 +62,70 @@ class ProductRepository {
     }
   }
 
+  // async rate(userId, productId, rating) {
+  //   try {
+  //     const db = getDB();
+  //     const ProductCollection = db.collection("products");
+  //     // find prod 
+  //     const prod = await ProductCollection.findOne({_id:new ObjectId(productId)});
+  //     const userRating = prod?.ratings?.find(r=>r.userId == userId);
+  //     if(userRating){
+  //       await ProductCollection.updateOne(
+  //         {_id : new ObjectId(productId),"ratings.userId":new ObjectId(userId)},
+  //         {
+  //           $set:{
+  //            "ratings.$.rating": rating  // ratings is array and $ is placeholder for the found out object
+  //         }}
+  //       )
+  //     }else{
+  //       await ProductCollection.updateOne(
+  //         { _id: new ObjectId(productId) },
+  //         {
+  //           $push: { ratings: { userId :new ObjectId(userId), rating } }
+  //         }
+  //       );
+  //     }
+      
+  //   } catch (err) {
+  //     console.log("prod controller filter" + err);
+  //     throw new ApplicationError("Something went wrong", 500);
+  //   }
+  // }
+
+
   async rate(userId, productId, rating) {
     try {
       const db = getDB();
       const ProductCollection = db.collection("products");
-      // find prod 
-      const prod = await ProductCollection.findOne({_id:new ObjectId(productId)});
-      const userRating = prod?.ratings?.find(r=>r.userId == userId);
-      if(userRating){
-        await ProductCollection.updateOne(
-          {_id : new ObjectId(productId),"ratings.userId":new ObjectId(userId)},
-          {
-            $set:{
-             "ratings.$.rating": rating  // ratings is array and $ is placeholder for the found out object
-          }}
-        )
-      }else{
-        await ProductCollection.updateOne(
-          { _id: new ObjectId(productId) },
-          {
-            $push: { ratings: { userId :new ObjectId(userId), rating } }
-          }
-        );
+      // we will pop/pull in db  the element
+      
+      await ProductCollection.updateOne({
+        _id: new ObjectId(productId)
+      },
+    {
+      $pull:{
+        ratings:{userId:new ObjectId(userId)}
       }
+    });
+      
+
+      await ProductCollection.updateOne(
+        { _id: new ObjectId(productId) },
+        {
+          $push: { ratings: { userId :new ObjectId(userId), rating } }
+        }
+      );
+        
+      
       
     } catch (err) {
       console.log("prod controller filter" + err);
       throw new ApplicationError("Something went wrong", 500);
     }
   }
+
+
+
 }
 
 export default ProductRepository;
