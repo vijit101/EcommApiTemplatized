@@ -1,0 +1,10 @@
+index.js -> 
+- Boiler plate imports express , swagger etc 
+- cors options defined here 
+- Body parser defined here
+- swagger defined here 
+- logger middleware used here
+- routes defined 
+- Error handling defined for all applicationerror(custom Class)
+- Error handling if api path not found
+- listen to server
