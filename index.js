@@ -16,17 +16,16 @@ import {connectToMongoDB} from './src/config/mongodb.js';
 
 const app = express();
 
+//middlewares
 let corsOptions  = {
     origin : "http//localhost:5500",
     allowedHeaders:"*"
 }
-
 app.use(cors(corsOptions));
-
 app.use(bodyParser.json()); // to understand post json data
-//middlewares
 app.use("/api-doc",swagger.serve,swagger.setup(apiDocs));
 app.use(loggerMiddleware);
+
 //routes 
 app.use("/api/users",userRouter);
 // app.use("/api/products",basicAuthorizer,productRouter);
