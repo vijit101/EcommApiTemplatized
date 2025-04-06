@@ -8,3 +8,7 @@ index.js ->
 - Error handling defined for all applicationerror(custom Class)
 - Error handling if api path not found
 - listen to server
+
+Custom middleware 
+- Logger 
+    -     
