@@ -11,4 +11,5 @@ index.js ->
 
 Custom middleware 
 - Logger 
-    -     
+    - Logger has a custom function of log 
+    - Winston logger 
