@@ -11,4 +11,5 @@ User Controller
 Cart 
     prod id 
     user id 
-    quantitiy 
+    quantity
+

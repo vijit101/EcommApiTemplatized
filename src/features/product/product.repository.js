@@ -38,7 +38,8 @@ class ProductRepository {
     }
   }
 
-  async filter(minPrice, maxPrice, category) {
+  // min price and category
+  async filter(minPrice, category,namePriceRatingView) {// earlier function i made async filter(minPrice, maxPrice, category)
     try {
       const db = getDB();
       const ProductCollection = db.collection("products");
@@ -46,21 +47,31 @@ class ProductRepository {
       if (minPrice) {
         filterExpression.price = { $gte: parseFloat(minPrice) }; // min price was overriding max price
       }
-      if (maxPrice) {
-        filterExpression.price = {
-          ...filterExpression,
-          $lte: parseFloat(maxPrice),
-        }; // combine filter for min price
-      }
+      // if (maxPrice) {
+      //   filterExpression.price = {
+      //     ...filterExpression,
+      //     $lte: parseFloat(maxPrice),
+      //   }; // combine filter for min price
+      // }
       if (category) {
-        filterExpression.category = category;
+        filterExpression = {$and:[{category:category},filterExpression]};
+        // earlier filterExpression.category = category;
       }
-      return await ProductCollection.find(filterExpression).toArray();
+      if(!namePriceRatingView){
+        return await ProductCollection.find(filterExpression).toArray();
+      }else{
+        return await ProductCollection.find(filterExpression).project({name:1,price:1,_id:0,ratings:{$slice:1}}).toArray();
+        // not show id and show only 1st rating
+      }
+
+      
     } catch (err) {
       console.log("prod controller filter" + err);
       throw new ApplicationError("Something went wrong", 500);
     }
   }
+
+  
 
   // async rate(userId, productId, rating) {
   //   try {

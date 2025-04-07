@@ -1,3 +1,4 @@
+// load all the environment variables in application
 import "./env.js";
 import express from 'express';
 import swagger from "swagger-ui-express";
@@ -5,7 +6,7 @@ import apiDocs from "./swagger.json" assert {type:"json"};
 import productRouter from './src/features/product/product.routes.js';
 import userRouter from './src/features/user/user.routes.js';
 import bodyParser from 'body-parser';
-import basicAuthorizer from './src/middlewares/basicAuth.middleware.js';
+//import basicAuthorizer from './src/middlewares/basicAuth.middleware.js';
 import CartItemRouter from './src/features/cart/cartitems.routes.js';
 import jwtAuth from './src/middlewares/jwt.middleware.js';
 import cors from "cors";
@@ -13,34 +14,26 @@ import {loggerMiddleware,logger,log} from './src/middlewares/logger.middleware.j
 import { ApplicationError } from './src/error-handler/applicationError.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
 
-
-
 const app = express();
 
-// load all the environment variables in application
-
-
+//middlewares
 let corsOptions  = {
     origin : "http//localhost:5500",
-    allowedHEaders:"*"
+    allowedHeaders:"*"
 }
-
 app.use(cors(corsOptions));
-
-
 app.use(bodyParser.json()); // to understand post json data
-//routes 
 app.use("/api-doc",swagger.serve,swagger.setup(apiDocs));
 app.use(loggerMiddleware);
+
+//routes 
 app.use("/api/users",userRouter);
 // app.use("/api/products",basicAuthorizer,productRouter);
 app.use("/api/products",jwtAuth,productRouter);
 app.use("/api/cart",jwtAuth,CartItemRouter);
-
 app.get("/",(req,res)=>{
     res.send("Welcome to Ecommerce API");
 })
-
 
 app.use((err,req,res,next)=>{
     console.log(err);
@@ -52,6 +45,7 @@ app.use((err,req,res,next)=>{
     // server error 
     res.status(500).send("something went wrong ");
 })
+
 // only executes if other paths do not pick up as this middleware is for not defined apis should be at end 
 app.use((req,res)=>{
     res.status(404).send("API not found. Check Documentation localhost:8080/api-docs");
