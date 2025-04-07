@@ -11,6 +11,7 @@ export const connectToMongoDB = ()=>{
         // this function creates counters cooecltion so we cna kind of map _id objectid to normal 1,2,3,4 etc ids
         // remove this mexy line for normal mongo db id's that are globally unique always 
         createCounter(client.db());
+        createIndexes(client.db());
     }).catch(err=>{
         console.log(err);
     })
@@ -27,4 +28,14 @@ const createCounter = async(db)=>{
     if(!existingCounter){
         await db.collection("counters").insertOne({_id:"cartItemId",value:0});
     }
+}
+
+const createIndexes = async(db)=>{
+    try{
+        await db.collection("products").createIndex({price:1}); // in products collection I need an ascendig property  
+        await db.collection("products").createIndex({name:1,category:-1});
+    }catch(err){
+        console.log(err);
+    }
+    console.log("indexes created");
 }
