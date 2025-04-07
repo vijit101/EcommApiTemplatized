@@ -27,9 +27,10 @@ export default class ProductController{
     // }
 
     async addProduct(req,res){
-        const {name,price,sizes,category} =  req.body;
+        const {name,desc,price,sizes,category,} =  req.body;
         const newprod = {
             name,
+            desc,
             price:parseFloat(price),
             sizes : sizes.split(','),
             category : category,
@@ -62,9 +63,10 @@ export default class ProductController{
 
     async filterProducts(req,res){
         const minPrice = req.query.minPrice;
-        const maxPrice = req.query.maxPrice;
+        //const maxPrice = req.query.maxPrice;
         const category = req.query.category;
-        const result =  await this.productRepository.filter(minPrice,maxPrice,category);
+        const result =  await this.productRepository.filter(minPrice,category);
+        // earlier fx filter(minPrice,maxPrice,category);
 
         //const result =  ProductModel.filter(minPrice,maxPrice,category);
         res.status(200).send(result);
