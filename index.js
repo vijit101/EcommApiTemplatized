@@ -13,6 +13,7 @@ import cors from "cors";
 import {loggerMiddleware,logger,log} from './src/middlewares/logger.middleware.js';
 import { ApplicationError } from './src/error-handler/applicationError.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
+import orderRouter from "./src/features/order/order.router.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/api/users",userRouter);
 // app.use("/api/products",basicAuthorizer,productRouter);
 app.use("/api/products",jwtAuth,productRouter);
 app.use("/api/cart",jwtAuth,CartItemRouter);
+app.use("/api/order",jwtAuth,orderRouter);
 app.get("/",(req,res)=>{
     res.send("Welcome to Ecommerce API");
 })
