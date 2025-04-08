@@ -71,6 +71,23 @@ class ProductRepository {
     }
   }
 
+  async avgPricePerCategory(){
+    try{
+      const db= getDB();
+      const ProductCollection = await db.collection("products");
+      const aggregatedRes = await ProductCollection.aggregate([{
+        // get avg pricer per category
+        $group :{
+          _id:"$category", // this says group all based on id/field called category
+          averagePrice:{$avg:"$price"}
+        }
+      }]).toArray();
+      return aggregatedRes;
+    }catch(err){
+      console.log("prod controller filter" + err);
+      throw new ApplicationError("Something went wrong", 500);
+    }
+  }
   
 
   // async rate(userId, productId, rating) {
