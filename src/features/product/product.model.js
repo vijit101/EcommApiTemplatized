@@ -2,7 +2,7 @@ import { ApplicationError } from "../../error-handler/applicationError.js";
 import { UserModel } from "../user/user.model.js";
 
 export default class ProductModel {
-  constructor(name, desc, prices, imageUrl, category, sizes,id) {
+  constructor(name, desc, prices, imageUrl, category, sizes,stock,id) {
     
     this.name = name;
     this.desc = desc;
@@ -10,6 +10,7 @@ export default class ProductModel {
     this.category = category;
     this.prices = prices;
     this.sizes = sizes;
+    this.stock = stock;
     this._id = id;
   }
 

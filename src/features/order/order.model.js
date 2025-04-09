@@ -5,5 +5,6 @@ export default class OrderModel{
         this.userId = userId;
         this.totalAmount = totalAmount;
         this.timestamp = timestamp;
+        
     }
 }

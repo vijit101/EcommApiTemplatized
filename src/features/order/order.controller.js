@@ -9,8 +9,8 @@ export default class OrderController{
     async placeOrder(req,res,next){
         try{
             const userId = req.userId;
-            await this.orderRepo.placeOrder(userId);
-            return res.status(200).send("order Placed");
+            const OrderDetails =  await this.orderRepo.placeOrder(userId);
+            return res.status(200).send(OrderDetails);
             
         }catch(err){
             console.log(err);

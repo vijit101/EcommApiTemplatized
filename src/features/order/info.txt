@@ -1,0 +1,9 @@
+Place order 
+- get the items of user cart by user id calculate the total amt 
+- create a record for order 
+- reduce the stock in backend for the product 
+- clear the cart 
+
+deduct payment 
+inform seller that the item is sold 
+courier service updated so that the stock can be sold 
