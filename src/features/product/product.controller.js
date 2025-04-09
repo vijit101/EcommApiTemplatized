@@ -26,7 +26,7 @@ export default class ProductController{
     // }
 
     async addProduct(req,res){
-        const {name,desc,price,sizes,category,} =  req.body;
+        const {name,desc,price,sizes,category,stock} =  req.body;
         const newprod = {
             name,
             desc,
@@ -34,6 +34,7 @@ export default class ProductController{
             sizes : sizes.split(','),
             category : category,
             imageUrl: req.file.filename,
+            stock:parseInt(stock)
         }
         const createdRecord = await this.productRepository.Add(newprod);
         console.log("post product update req successful");
