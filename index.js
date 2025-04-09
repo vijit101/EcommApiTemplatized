@@ -41,7 +41,7 @@ app.use((err,req,res,next)=>{
     console.log(err);
     
     if(err instanceof ApplicationError){
-        res.status(err.code).send(err.message);
+        res.sendStatus(err.code).send(err.message);
     }
     log(err);
     // server error 
