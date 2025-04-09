@@ -2,7 +2,6 @@
 import ProductModel from "./product.model.js";
 import ProductRepository from "./product.repository.js";
 export default class ProductController{
-
     constructor(){
         this.productRepository = new ProductRepository();
     }
@@ -70,7 +69,17 @@ export default class ProductController{
         // earlier fx filter(minPrice,maxPrice,category);
 
         //const result =  ProductModel.filter(minPrice,maxPrice,category);
+        return res.status(200).send(result);
+    }
+
+    async FindAvgPrice(req,res,next){
+       try{
+        const result = await this.productRepository.avgPricePerCategory();
         res.status(200).send(result);
+       }catch(err){
+        console.log(err);
+       }
+        
     }
 
   
@@ -84,9 +93,8 @@ export default class ProductController{
         }catch(err){
             console.log(err);
             return res.status(400).send(err.message);
-            next(err);
+            
         }
         return res.status(200).send("rating updated");
-        
     }
 }

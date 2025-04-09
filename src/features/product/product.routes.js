@@ -13,10 +13,16 @@ productRouter.get("/",(req,res)=>{
 productRouter.post("/",upload.single('imageUrl'),(req,res)=>{
     prodController.addProduct(req,res);
 });
+
+productRouter.get("/averagePrice",(req,res,next)=>{
+    prodController.FindAvgPrice(req,res,next);
+});
 productRouter.get('/:id',(req,res)=>{
     prodController.getOneProduct(req,res);
 });
 productRouter.post("/rate",(req,res,next)=>{
     prodController.rateProduct(req,res,next);
 });
+
+
 export default productRouter;
