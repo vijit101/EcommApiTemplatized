@@ -14,6 +14,7 @@ import {loggerMiddleware,logger,log} from './src/middlewares/logger.middleware.j
 import { ApplicationError } from './src/error-handler/applicationError.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
 import orderRouter from "./src/features/order/order.router.js";
+import { ConnectUsingMongoose } from "./src/config/mongooseConfig.js";
 
 const app = express();
 
@@ -55,7 +56,9 @@ app.use((req,res)=>{
 
 app.listen(8080,()=>{
     console.log("server started at 8080");
-    connectToMongoDB();
+    ConnectUsingMongoose();
+    // earlier we were using the mongo db directly 
+    // connectToMongoDB();
 })
 
 
