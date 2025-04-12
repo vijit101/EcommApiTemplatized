@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-console.log("mongo db Activated");
+console.log("mongo db File executing");
 const url = process.env.DB_URL;
 let mongoClient = null;
 
