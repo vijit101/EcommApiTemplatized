@@ -13,4 +13,18 @@ Custom middleware
 - Logger 
     - Logger has a custom function of log 
     - Winston logger (excludes sign in and sign out logs)
-    - 
+    -
+
+- File upload 
+
+
+
+
+- basic Auth 
+
+
+
+
+- JWT Auth 
+
+

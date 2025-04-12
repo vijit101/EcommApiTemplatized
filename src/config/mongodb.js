@@ -24,7 +24,7 @@ export const getClient = ()=>{
 export const getDB=()=>{
     if(mongoClient!=null){
         return mongoClient.db();
-    }
+    } 
 }
 
 const createCounter = async(db)=>{
