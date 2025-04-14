@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-
+import { ObjectId } from "mongodb";
 
 export const reviewSchema = new Schema({
     productId: {
@@ -7,7 +7,7 @@ export const reviewSchema = new Schema({
         ref:"products"
     },
     userId:{
-        type:ObjectId,
+        type: ObjectId,
         ref:"users"
     },
     rating:Number,

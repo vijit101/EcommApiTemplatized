@@ -1,4 +1,5 @@
 import { Schema } from "mongoose";
+import { ObjectId } from "mongodb";
 
 export const productSchema = new Schema({
     name : String , 
@@ -12,6 +13,12 @@ export const productSchema = new Schema({
         {
             type : ObjectId,
             ref:"reviews"
+        }
+    ],
+    categoriesIdArray:[
+        {
+            type : ObjectId,
+            ref : "categories"
         }
     ]
 })

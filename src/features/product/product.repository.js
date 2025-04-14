@@ -4,25 +4,46 @@ import { ApplicationError } from "../../error-handler/applicationError.js";
 import mongoose from "mongoose";
 import { productSchema } from "./product.schema.js";
 import { reviewSchema } from "./review.schema.js";
+import { categorySchema } from "./category.schema.js";
 
 
 const productSchemaModel = mongoose.model("products",productSchema);
 const reviewSchemaModel = mongoose.model("reviews",reviewSchema);
-
+const categorySchemaModel = mongoose.model("categories",categorySchema);
 
 class ProductRepository {
+
+  // earlier function using the mondgo db 
+  // async Add(productData) {
+  //   try {
+  //     const db = getDB();
+  //     const ProductCollection = db.collection("products");
+  //     // users.push(newUser);
+  //     await ProductCollection.insertOne(productData);
+  //     return productData;
+  //   } catch (err) {
+  //     console.log("prod controller Add:" + err);
+  //     throw new ApplicationError("Something went wrong", 500);
+  //   }
+  // }
+
+  // mongoose 
   async Add(productData) {
     try {
-      const db = getDB();
-      const ProductCollection = db.collection("products");
-      // users.push(newUser);
-      await ProductCollection.insertOne(productData);
-      return productData;
-    } catch (err) {
+      const newprod = new productSchemaModel(productData);
+      const savedProd = await newprod.save();
+
+      await categorySchemaModel.updateMany(
+        {_id:{$in: productData.categoriesIdArray}},{
+          $push:{productIdArray:new ObjectId(savedProd._id)}
+        }
+      )
+    }catch(err){
       console.log("prod controller Add:" + err);
       throw new ApplicationError("Something went wrong", 500);
     }
   }
+
 
   async getAll() {
     try {
@@ -164,7 +185,7 @@ class ProductRepository {
   async rate(userId, productId, rating) {
     try{
       // if prod exists 
-      const productToUpdate = await productSchemaModel.findById(productId);
+      const productToUpdate = await productSchemaModel.findById(new ObjectId(productId));
       if(!productToUpdate){
         throw new Error("product not found");
       }
