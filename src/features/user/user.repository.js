@@ -1,6 +1,7 @@
 import { Schema, mongoose } from "mongoose";
 import { userSchema } from "./user.schema.js";
 import { ApplicationError } from "../../error-handler/applicationError.js";
+
 const userSchemaModel = mongoose.model("users", userSchema); // users colelction/db name
 
 export default class UserRepository {
@@ -28,7 +29,22 @@ export default class UserRepository {
     try {
       return await userSchemaModel.findOne({ email: email });
     } catch (err) {
-      console.log("user model sign up :" + err);
+      console.log("user find by email repo :" + err);
+      throw new ApplicationError("Something went wrong", 500);
+    }
+  }
+
+
+  async resetPassword(userId,newPassword){
+    try{
+        let user = await userSchemaModel.findById(userId);
+        if(user){
+            user.password = newPassword;
+            user.save();
+        }else{
+            throw new error("User not Found");
+        }
+    }catch (err) {
       throw new ApplicationError("Something went wrong", 500);
     }
   }

@@ -1,10 +1,10 @@
 import { UserModel } from "./user.model.js";
 import jwt from "jsonwebtoken";
+// import UserRepository from "./user.repository_old.js";
 import UserRepository from "./user.repository.js";
 import bcrypt from "bcrypt";
 import { logger } from "../../middlewares/logger.middleware.js";
 export class UserController {
-  
   constructor() {
     this.userRepository = new UserRepository();
   }
@@ -26,7 +26,11 @@ export class UserController {
         // check if password for user right
         const result = await bcrypt.compare(req.body.password, user.password);
         if (result) {
-          const token = jwt.sign({ userId: user._id, email: user.email },process.env.JWT_Secret,{ expiresIn: "2h" });
+          const token = jwt.sign(
+            { userId: user._id, email: user.email },
+            process.env.JWT_Secret,
+            { expiresIn: "2h" }
+          );
           return res.status(200).send(token);
         } else {
           console.log(err);
@@ -36,6 +40,18 @@ export class UserController {
     } catch (err) {
       console.log(err);
       logger();
+      return res.status(400).send("Somthing went wrong");
+    }
+  }
+
+  async resetPassword(req,res){
+    const{password} = req.body;
+    const userId = req.userId;
+    const hashedpass = await bcrypt.hash(password,12);
+    try{
+      await this.userRepository.resetPassword(userId,hashedpass);
+      return res.status(200).send("Password Reset");
+    }catch(err){
       return res.status(400).send("Somthing went wrong");
     }
   }

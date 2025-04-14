@@ -8,4 +8,10 @@ export const productSchema = new Schema({
     prices : Number,
     sizes : Array,
     stock : Number,
+    reviewsIdArray:[
+        {
+            type : ObjectId,
+            ref:"reviews"
+        }
+    ]
 })
