@@ -26,14 +26,14 @@ export default class ProductController{
     // }
 
     async addProduct(req,res){
-        const {name,desc,price,sizes,category,stock} =  req.body;
+        const {name,desc,price,sizes,categoriesIdArray,stock} =  req.body;
         const newprod = {
             name,
             desc,
             price:parseFloat(price),
-            sizes : sizes.split(','),
-            category : category,
-            imageUrl: req.file.filename,
+            sizes : sizes?.split(','),
+            categoriesIdArray : categoriesIdArray?.split(",").map(IndividualId=>IndividualId.trim()),
+            imageUrl: req?.file?.filename,
             stock:parseInt(stock)
         }
         const createdRecord = await this.productRepository.Add(newprod);
