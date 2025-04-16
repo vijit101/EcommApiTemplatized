@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { model } from "mongoose";
 import { likeSchema } from "./like.schema.js";
 import { ObjectId } from "mongodb";
 const likeSchemaModel = mongoose.model("likes",likeSchema);
@@ -12,6 +12,7 @@ export class LikeRepositoryClass{
                 collectionTypes :'products'
 
             })
+            await newLikeObj.save();
         }catch(err){
             console.log(err);
         }
@@ -25,6 +26,20 @@ export class LikeRepositoryClass{
                 collectionTypes :'categories'
 
             })
+            await newLikeObj.save();
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    async getLikesfx(id,collectionTypes){
+        try{
+
+            return await likeSchemaModel.find({
+                likeId: new ObjectId(id),
+                collectionTypes : collectionTypes,
+            }).populate('userId').populate({path:"likeId",model:collectionTypes})
+
         }catch(err){
             console.log(err);
         }

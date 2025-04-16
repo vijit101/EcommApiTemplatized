@@ -14,12 +14,26 @@ export class likeControllerclass{
             if(collectionTypes!='products' && collectionTypes!='categories'){
                 return res.status(400).send("invalid collectionType send");
             }
-            if(type == "products"){
+            if(collectionTypes == "products"){
                 this.likeRepoObj.likeProductfx(userId,id);
             }
             else{
                 this.likeRepoObj.likeCategoryfx(userId,id);
             }
+            return res.status(200).send("Data added successfully");
+
+
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+    async GetLikesfx(req,res){
+        try{
+            const{id,collectionTypes} = req.query;
+            const likes = await this.likeRepoObj.getLikesfx(id,collectionTypes);
+            return res.status(200).send(likes);
 
         }
         catch(err){

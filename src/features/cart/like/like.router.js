@@ -8,4 +8,8 @@ likeRouter.post("/",(req,res)=>{
     likeControllerObj.LikeItemfx(req,res);
 })
 
+likeRouter.get("/",(req,res)=>{
+    likeControllerObj.GetLikesfx(req,res);
+})
+
 export default likeRouter;
