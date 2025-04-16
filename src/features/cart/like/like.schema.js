@@ -12,5 +12,6 @@ export const likeSchema = new Schema({
     collectionTypes:{
         type : String,
         enum:['products','categories']
+        
     }
 })
