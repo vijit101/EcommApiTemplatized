@@ -15,6 +15,7 @@ import { ApplicationError } from './src/error-handler/applicationError.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
 import orderRouter from "./src/features/order/order.router.js";
 import { ConnectUsingMongoose } from "./src/config/mongooseConfig.js";
+import likeRouter from "./src/features/cart/like/like.router.js";
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/users",userRouter);
 app.use("/api/products",jwtAuth,productRouter);
 app.use("/api/cart",jwtAuth,CartItemRouter);
 app.use("/api/order",jwtAuth,orderRouter);
+app.use("/api/likes",jwtAuth,likeRouter);
 app.get("/",(req,res)=>{
     res.send("Welcome to Ecommerce API");
 })
