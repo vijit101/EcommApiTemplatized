@@ -1,4 +1,4 @@
-import { LikeRepositoryClass } from "./like.repository";
+import { LikeRepositoryClass } from "./like.repository.js";
 
 
 export class likeControllerclass{
