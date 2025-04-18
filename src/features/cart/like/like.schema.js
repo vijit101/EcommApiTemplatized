@@ -16,4 +16,16 @@ export const likeSchema = new Schema({
         enum:['products','categories']
         
     }
+}).pre("save",(next)=>{
+    // pre middleware 
+    console.log("New like coming in");
+    next();// loads other pre mongoose middleware if any
+}).post('save',(doc)=>{
+    console.log("saved \n"+doc);
+}).pre("find",(next)=>{
+    console.log("getting likes");
+    next();
+}).post("find",(docs)=>{
+    console.log("Find Completed "+docs);
+    
 })

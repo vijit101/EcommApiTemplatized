@@ -1,0 +1,4 @@
+# comments - rename this file to .env then add your own db url and JWT_Secret without these two there be errors
+
+DB_URL = mongodb://localhost:27017/ecomdb
+JWT_Secret = secret here 
