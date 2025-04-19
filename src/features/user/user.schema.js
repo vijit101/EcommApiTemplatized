@@ -12,12 +12,12 @@ export const userSchema = new Schema({
   },
   password: {
     type: String,
-    validate: {
-      validator: function (vals) {
-        return passwordregex.test(vals);
-      },
-      message: "password should be btw 6 = 16 chars ",
-    },
+    // validate: {
+    //   validator: function (vals) {
+    //     return passwordregex.test(vals);
+    //   },
+    //   message: "password should be btw 6 = 16 chars ",
+    // },
   },
   type: { type: String, enum: typeEnum },
 });

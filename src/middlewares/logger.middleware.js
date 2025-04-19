@@ -17,7 +17,7 @@ async function log(logData){
 const logger = winston.createLogger({
     level:"info",
     format:winston.format.json(),
-    defaultMeta:{service:"requet-logging"},
+    defaultMeta:{service:"request-logging"},
     transports:[
         new winston.transports.File({filename:"logs.txt"})
     ]
