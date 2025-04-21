@@ -10,7 +10,7 @@ import bodyParser from 'body-parser';
 import CartItemRouter from './src/features/cart/cartitems.routes.js';
 import jwtAuth from './src/middlewares/jwt.middleware.js';
 import cors from "cors";
-import {loggerMiddleware,logger,log} from './src/middlewares/logger.middleware.js';
+import {loggerMiddleware,log} from './src/middlewares/logger.middleware.js';
 import { ApplicationError } from './src/error-handler/applicationError.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
 import orderRouter from "./src/features/order/order.router.js";
