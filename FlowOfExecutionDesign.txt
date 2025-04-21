@@ -4,7 +4,7 @@ index.js ->
 - Body parser defined here
 - swagger defined here 
 - logger middleware used here
-- routes defined 
+- routes defined - user , prod , cartItems , orderRouter , like Router
 - Error handling defined for all applicationerror(custom Class)
 - Error handling if api path not found
 - listen to server
@@ -13,18 +13,9 @@ Custom middleware
 - Logger 
     - Logger has a custom function of log 
     - Winston logger (excludes sign in and sign out logs)
-    -
-
-- File upload 
 
 
 
 
-- basic Auth 
-
-
-
-
-- JWT Auth 
 
 
