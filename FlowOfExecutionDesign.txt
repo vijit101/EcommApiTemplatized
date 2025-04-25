@@ -59,13 +59,35 @@ Routers
             - Find the user if by findbyId inbuild fx then if user exists change pasword
      
 - product 
-    -productRouter
+    - productRouter
         - method fxUsed from Controller apiRoute
         - get filterProducts()  /filter
-        - get getAllProducts   /  
-        - 
+        - get getAllProducts()   /  
+        - post addProduct()      /
+        - get FindAvgPrice()   /averagePrice
+        - get getOneProduct()  /:id
+        - post rateProduct()  /rate
+    
+    - ProductController
+        - getAllProducts() 
+            - using prodrepo getAll()
+        
+        - addProduct()
+            - creating new prod
+            - using the repo productRepository.Add(newprod)
 
+        - getOneProduct()
+            - get id from params via req.params.id
+            - Use repo to get product with id from mongoose db 
 
+        - filterProducts()
+            - use query params to send productRepository.filter(minPrice,category,namePriceRatingView)
+        
+        - FindAvgPrice()
+            - using productRepository.avgPricePerCategory()
+
+        - rateProduct() 
+            - use productRepository.rate(userId,productId,rating)
 
 - cartItems
 
