@@ -18,6 +18,7 @@ This is a fully functional **E-Commerce API** built with **Node.js and Express.j
 - **File Upload** using Multer (for product images)
 - **API Documentation** with Swagger
 - **MongoDB Database Integration**
+- **Mongoose ODM Database Integration**
 - **Middleware for Logging & Security**
 - **Error Handling with Custom Middleware**
 
