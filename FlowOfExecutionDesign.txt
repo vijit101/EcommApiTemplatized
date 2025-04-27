@@ -11,14 +11,83 @@ index.js ->
 
 Custom middleware 
 - Logger 
-    - Logger has a custom function of log 
-    - Winston logger (excludes sign in and sign out logs)
-
+    - Logger has a custom function of log written in vanilla js 
+    - A Logger funtion which is using winston logger 
+    - logger middleware Winston logger (excludes sign in and sign out logs)
 
 Routers 
-- product 
-
 - users 
+    - userRouter 
+        - method fxUsed from Controller apiRoute
+        - post signUp /signup
+        - post signIn /signin
+        - put resetpassword  /resetpassword
+
+    - UserController 
+        - All functions as fx name- signUp, signIn , resetPassword note params not added here 
+        
+        - signUp()
+            - hashes password using bcrypt
+            - creates new user model ie. populate an empty class object
+            - send the new user model data to the repository SignUp fx 
+        
+        - signIn()
+            - first using repo to find the email if found then user exists 
+            - if user exist then only checking the password using bycrypt.compare which compares hash password with password
+            - if fine then gen a token using jwt expires in 2h 
+
+        - resetpassword()
+            - this route uses jwt custom middleware we wrote assigns req with userid from jwt token after verification
+            - need to be logged in for reset
+            - here again password is hashed 
+        
+    - UserRepository 
+        - Declares a userSchemaModel to use mongoose ,  fx names as note only fx names no params
+
+        - SignUp()
+            - Controller calls this to save the new user 
+            - A new user schema is created from the user model object
+            - new user is saved & returned 
+
+        - SignIn()
+            - using userSchemaModel find the email and password the nreturn it 
+
+        - FindByEmail()
+            - Find if the email added by the user matches any email in the db 
+        
+        - resetPassword()
+            - Find the user if by findbyId inbuild fx then if user exists change pasword
+     
+- product 
+    - productRouter
+        - method fxUsed from Controller apiRoute
+        - get filterProducts()  /filter
+        - get getAllProducts()   /  
+        - post addProduct()      /
+        - get FindAvgPrice()   /averagePrice
+        - get getOneProduct()  /:id
+        - post rateProduct()  /rate
+    
+    - ProductController
+        - getAllProducts() 
+            - using prodrepo getAll()
+        
+        - addProduct()
+            - creating new prod
+            - using the repo productRepository.Add(newprod)
+
+        - getOneProduct()
+            - get id from params via req.params.id
+            - Use repo to get product with id from mongoose db 
+
+        - filterProducts()
+            - use query params to send productRepository.filter(minPrice,category,namePriceRatingView)
+        
+        - FindAvgPrice()
+            - using productRepository.avgPricePerCategory()
+
+        - rateProduct() 
+            - use productRepository.rate(userId,productId,rating)
 
 - cartItems
 
