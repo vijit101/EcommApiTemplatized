@@ -26,6 +26,7 @@ This is a fully functional **E-Commerce API** built with **Node.js and Express.j
 - **Node.js** - JavaScript runtime
 - **Express.js** - Web framework for Node.js
 - **MongoDB** - NoSQL database
+- **Mongoose ODM** - ODM/ORM
 - **Multer** - Middleware for file uploads
 - **JWT (jsonwebtoken)** - Authentication
 - **Swagger-UI-Express** - API documentation
